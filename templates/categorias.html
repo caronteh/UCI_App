@@ -1,0 +1,51 @@
+{%  extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<section style="background-color: white">
+<div class="ContenedorMapas"  style=" width: 60%; background-color: white">
+<div class="row">
+    {% for mapa in mapas %}
+
+        <div class="card" style="color:black; text-align: center; background-color: rgba(10,180,197,0.54); width: 47%; height: 300px; margin: 40px 5px 30px 20px" class="page-section">
+
+
+            <h2 class="card" style="text-decoration-line: underline;width: 50%; margin: 10px 0px 0px 102px; background-color: azure">Centro: {{ mapa.Centros }}</h2>
+            <p class="card" style="margin: 10px 0px 0px 102px; width: 50%;background-color: azure" > Servicio:    {{ mapa.Servicio }}</p>
+            <p class="card" style="margin: 10px 0px 0px 102px; width: 50%;background-color: azure">Habitación:  {{ mapa.Habitacion }}</p>
+            <p class="card" style="margin: 10px 0px 0px 145px; width: 30%; background-color: #19c240">ID:  {{ mapa.NumID }}</p>
+            <ul style="margin: 10px 60px 0px 0px">
+                <il class="card-text" style="background-color: #ff1616">MP:  {{ mapa.MP }}</il>
+                <il class="card-text" style="background-color: #ff1616">VT:  {{ mapa.VT }}</il>
+                <il class="card-text" style="background-color: #ff1616">PEEP:    {{ mapa.PEEP }}</il>
+                <il class="card-text" style="background-color: #ff1616">RR:  {{ mapa.RR }}</il>
+                <il class="card-text" style="background-color: #ff1616">PPlato:  {{ mapa.PPlato }}</il>
+                <il class="card-text" style="background-color: #ff1616">PPeak:   {{ mapa.PPeak }}</il>
+            </ul>
+        </div>
+
+
+
+
+    {% endfor %}
+</div>
+</div>
+</section>
+
+<section>
+    <div style="width: 100%; background-color: #0ab4c5; margin: auto; text-align: center;color:white">
+        Centros:
+
+         {% for categoria in categorias %}
+
+
+
+                    <a class="linksCategorias" href="{% url 'categoria' categoria.id %}">{{categoria.nombre}}<a/> &nbsp;&nbsp;&nbsp;
+
+
+        {% endfor %}
+
+    </div>
+</section>
+{% endblock %}

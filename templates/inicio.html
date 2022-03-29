@@ -1,0 +1,112 @@
+{%  extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<!-- Contenidos de la pagina -->
+    <section class="ContenedorMapas"  style=" width: 100%; background-color: white">
+    <section class="card" style="width: 50%; text-align: center; background-color: rgba(10,180,197,0.7); margin: 10px 0px 0px 350px">
+        <h1 class="card" style="background-color: azure; text-decoration-line: underline">Chart</h1>
+        <div id="container" style="width: 75%; margin: 10px 0px 0px 90px; background-color: #0ab4c5" class="card" >
+        <canvas id="pie-chart"></canvas>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+      <script>
+
+        var config = {
+          type: 'pie',
+          data: {
+            datasets: [{
+              data: {{ data|safe }},
+              backgroundColor: [
+                '#0a71e7', '#4bd7bb', '#aef4fc', 'rgba(10,180,197,0.69)', '#D3D3D3'
+              ],
+              label: 'Hits'
+            }],
+            labels: {{ labels|safe }}
+          },
+          options: {
+            responsive: true
+          }
+        };
+
+        window.onload = function() {
+          var ctx = document.getElementById('pie-chart').getContext('2d');
+          window.myPie = new Chart(ctx, config);
+        };
+
+      </script>
+    </section>
+    <section class="card" style="width: 50%; text-align: center; background-color: rgba(10,180,197,0.7); margin: 10px 0px 0px 350px">
+    <h1 class="card" style="text-align: center; text-decoration-line: underline; background-color: azure">Interacciones</h1>
+        {% if estats %}
+            <h3 class="card" style="color:#002a57; width: 10%; margin: 10px 10px 10px 320px; background-color: #ffffff; border-color: black; font-style: oblique">{{ estats }}<a style="font-size: small">hits<i class="bi bi-check"></i></a></h3>
+
+        {% endif %}
+    <form action="{% url 'Inicio' %}" method="POST" class="form" style="text-align: center">
+            <p class="card" style="margin: 10px; background-color: azure; width: 50%; margin: 10px 10px 10px 175px">Elija Usuario:</p>
+            {% csrf_token %}
+            {{ form.as_table }}
+        <input class="btn-info" type="submit" value="Enviar">
+    </form>
+    </section>
+
+    <section class="card" style=" background-color:rgb(16,199,217);margin: 10px 0px 0px 350px; width: 50%;">
+    <h1 class="card" style="text-align: center; text-decoration-line: underline; background-color: azure">Map Hits</h1>
+    <table style="text-align: center; border-color: black" border='3'>
+            <tr style="text-align: center; color:black">
+                <th>MapID</th>
+                <th>Usuario</th>
+                <th>Centro</th>
+                <th>Propuesta</th>
+                <th>Fecha</th>
+            </tr>
+    {% for propuesta in propuestas %}
+            <tr>
+                <td style="color:yellow">{{ propuesta.MapID }}</td>
+                <td style="color:yellow">{{ propuesta.user }}</td>
+                <td style="color:white">{{ propuesta.mapa }}</td>
+                <td style="color:yellow">{{ propuesta.value }}</td>
+                <td style="color:white">{{ propuesta.created }}</td>
+            </tr>
+    {% endfor %}
+    </table>
+    </section>
+
+    <section class="card" style=" background-color: rgba(10,180,197,0.7);margin: 10px 0px 0px 350px; width: 50%">
+    <h1 class="card" style="text-align: center; text-decoration-line: underline; background-color: azure">Entradas y Salidas</h1>
+
+    <table style="text-align: center; border-color: black" border='3'">
+            <tr style="text-align: center; color:black">
+                <th>Usuario</th>
+                <th>Tiempo</th>
+            </tr>
+
+    {% for login in logins %}
+        {%  if login.login_time == None %}
+
+        {% else %}
+            <tr style="text-align: center">
+                <td style="color:yellow; font: bolder">{{ login.user }}</td>
+                <td style="color: white">Login Time: {{ login.login_time }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    {% for login in logins %}
+        {%  if login.logout_time == None %}
+
+        {% else %}
+            <tr style="text-align: center">
+                <td style="color:yellow; font: bolder">{{ login.user }}</td>
+                <td style="color: white">Logout Time: {{ login.logout_time }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+    </section>
+    </section>
+
+{% endblock %}

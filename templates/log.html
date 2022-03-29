@@ -1,0 +1,24 @@
+{%  extends "base2.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="ContenedorFormulario">
+<h3 style="text-align: center; color: white">Registrarse </h2>
+<form class="form" method="post" style="text-align: center; color: white">
+    {% csrf_token %}
+    <table style="color: white">{{form.as_table}}</table>
+
+    <button style="margin: 20px" class="btn-light" type="submit" id="submit">Registrarse</button>
+
+</form>
+</div>
+{% if messages %}
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+{% endif %}
+
+
+{% endblock %}

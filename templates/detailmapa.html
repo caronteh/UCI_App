@@ -1,0 +1,63 @@
+{%  extends "base.html" %}
+
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+<section style="background-color: white" >
+<div  style=" width: 50%; height: 100%; background-color:white; margin: 40px 0px 0px 400px">
+<div>
+
+        <div class="card" style="text-align: center; background-color: rgba(10,180,197,0.54); width: 90%; height: 60%" class="page-section">
+
+
+            <h2 class="card" style="text-decoration-line: underline;width: 50%; margin: 10px 0px 0px 160px; background-color: azure">Centro: {{ mapeo.Centros }}</h2>
+            <p class="card" style="margin: 10px 0px 0px 160px; width: 50%;background-color: azure" > Servicio:    {{ mapeo.Servicio }}</p>
+            <p class="card" style="margin: 10px 0px 0px 160px; width: 50%;background-color: azure">Habitación:  {{ mapeo.Habitacion }}</p>
+            <p class="card" style="margin: 15px 0px 0px 225px; width: 30%; background-color: #19c240">ID:  {{ mapeo.NumID }}</p>
+            <ul style="margin: 30px 60px 0px 0px">
+                <il class="card" style="background-color: #ff1616; font-size: large; border-color: black; border-style: groove">MP:  {{ mapeo.MP }}</il>
+                <il class="card" style="background-color: #ff1616; font-size: large; border-color: black; border-style: groove"">VT:  {{ mapeo.VT }}</il>
+                <il class="card" style="background-color: #ff1616; font-size: large; border-color: black; border-style: groove"">PEEP:    {{ mapeo.PEEP }}</il>
+                <il class="card" style="background-color: #ff1616; font-size: large; border-color: black; border-style: groove"">RR:  {{ mapeo.RR }}</il>
+                <il class="card" style="background-color: #ff1616; font-size: large; border-color: black; border-style: groove"">PPlato:  {{ mapeo.PPlato }}</il>
+                <il class="card" style="background-color: #ff1616; font-size: large; border-color: black; border-style: groove"">PPeak:   {{ mapeo.PPeak }}</il>
+            </ul>
+
+            <div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+                          <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin: 30px">
+              Views
+                <span class='bi bi-eye'></span>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Views</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <span class='bi bi-eye'>{{ mapeo.views }}</span>
+                      <p>{% get_hit_count for mapeo %} </p></div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+
+
+        </div>
+
+
+
+</div>
+</div>
+</section>
+<section>
+
+</section>
+{% endblock %}

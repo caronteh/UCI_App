@@ -1,0 +1,23 @@
+{%  extends "base.html" %}
+
+{% load static %}
+
+{% block content %}<html>
+<head>
+
+</head>
+
+<body>
+
+<div class="ContenedorFormulario">
+<form style="color:white; text-align: center; background-color: #0ab4c5" method="POST">
+    <h1>Eliga una opción</h1>
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Submit">
+</form>
+</div>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{%  extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Bootstrap Core CSS -->
+
+
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<!-- jQuery -->
+
+
+    <script src="{% static 'base/js/jquery.min.js' %}"></script>
+
+
+
+
+    <!-- Bootstrap Core JavaScript -->
+
+
+    <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+
+
+<section style="background-color: white">
+<div class="ContenedorMapas"  style=" width: 60%; background-color: white">
+<div class="row">
+    {% for mapa in mapas %}
+
+        {% if mapa.Centros == centro.centro %}
+
+
+            <div class="card" style="color:black; text-align: center; background-color: rgba(10,180,197,0.54); width: 47%; margin: 13px" class="page-section">
+
+
+                <h2 class="card" style="text-decoration-line: underline;width: 50%; margin: 10px 0px 0px 102px; background-color: azure">Centro: {{ mapa.Centros }}</h2>
+                <p class="card" style="margin: 10px 0px 0px 102px; width: 50%;background-color: azure" > Servicio:    {{ mapa.Servicio }}</p>
+                <p class="card" style="margin: 10px 0px 0px 102px; width: 50%;background-color: azure">Habitación:  {{ mapa.Habitacion }}</p>
+                <p class="card" style="margin: 10px 0px 0px 145px; width: 30%; background-color: #19c240">ID:  {{ mapa.NumID }}</p>
+                <ul style="margin: 10px 60px 0px 0px">
+                    <il class="card-text" style="background-color: #ff1616; border-radius: 50px; border-style: groove; border-color: red; font-weight: bold">MP:  {{ mapa.MP }}</il>
+                    <il class="card-text" style="background-color: #ff1616;border-radius: 50px;border-style: groove; border-color: red; font-weight: bold">VT:  {{ mapa.VT }}</il>
+                    <il class="card-text" style="background-color: #ff1616;border-radius: 50px;border-style: groove; border-color: red; font-weight: bold">PEEP:    {{ mapa.PEEP }}</il>
+                    <il class="card-text" style="background-color: #ff1616;border-radius: 50px;border-style: groove; border-color: red; font-weight: bold">RR:  {{ mapa.RR }}</il>
+                    <il class="card-text" style="background-color: #ff1616;border-radius: 50px;border-style: groove; border-color: red; font-weight: bold">PPlato:  {{ mapa.PPlato }}</il>
+                    <il class="card-text" style="background-color: #ff1616;border-radius: 50px;border-style: groove; border-color: red; font-weight: bold">PPeak:   {{ mapa.PPeak }}</il>
+                </ul>
+                <form action="{% url 'Mapa' %}" method="POST" class="form">
+                <input type="hidden" name="mapa_id" value="{{ mapa.id }}">
+                    <p class="card" style="margin: 10px; background-color: azure">Eliga una opción:</p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                <input class="btn-info" type="submit" value="Enviar">
+
+                    <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              Historial
+            </button>
+            <strong>{{ mapa.Propuestas.all.count }} Users<i class="bi bi-person" style="font-size: large"></i></strong>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Propuestas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                      {% for propuesta in propuestas %}
+                          <ul style="font-size: small">
+                          <il>{{ propuesta.user }}</il>
+                          <il>{{ propuesta.value }}</il>
+                          <il>{{ propuesta.created }}</il>
+                          </ul>
+
+                      {% endfor %}
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  </div>
+            </form>
+
+                </div>
+              </div>
+            </div>
+            </div>
+
+
+        {% endif %}
+
+    {% endfor %}
+</div>
+</div>
+</section>
+
+
+{% endblock %}
