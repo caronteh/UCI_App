@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -77,7 +79,7 @@ class RPropuestas (models.Model):
     mapa = models.ForeignKey(Mapeo, on_delete=models.CASCADE)
     value = models.CharField( default='No me convence', max_length=25)
     MapID = models.IntegerField(null=True)
-    created = models.DateTimeField(auto_now_add=now)
+    created = models.DateTimeField(auto_now_add=datetime.datetime.now())
 
     class Meta:
         verbose_name = 'Propuesta'
