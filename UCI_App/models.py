@@ -77,7 +77,7 @@ class RPropuestas (models.Model):
     mapa = models.ForeignKey(Mapeo, on_delete=models.CASCADE)
     value = models.CharField( default='No me convence', max_length=25)
     MapID = models.IntegerField(null=True)
-    created = models.DateTimeField(auto_now_add=now, null=True)
+    created = models.DateTimeField(auto_now_add=now)
 
     class Meta:
         verbose_name = 'Propuesta'
@@ -98,4 +98,8 @@ class NumHits (models.Model):
         verbose_name = 'Hit'
         verbose_name_plural = 'Hits'
 
+class Conexiones (models.Model):
+
+    nombre = models.ForeignKey(User, on_delete=models.CASCADE)
+    conexion = models.CharField(max_length=15, default='Desconectado')
 

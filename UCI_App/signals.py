@@ -1,6 +1,6 @@
 from django.dispatch import receiver
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
-from UCI_App.models import LoginLogoutLog
+from UCI_App.models import LoginLogoutLog, Conexiones
 import datetime
 import logging
 
@@ -8,6 +8,9 @@ import logging
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):
     print('user {} logged in through page {}'.format(user.username, request.META.get('HTTP_REFERER')))
+    conexion = Conexiones.objects.get(nombre=user)
+    conexion.conexion = 'Conectado'
+    conexion.save()
     login = LoginLogoutLog(login_time=datetime.datetime.now(), session_key=request.session.session_key, user=user, host=request.META['HTTP_HOST'])
     login.save()
 
@@ -20,5 +23,8 @@ def log_user_login_failed(sender, credentials, request, **kwargs):
 @receiver(user_logged_out)
 def log_user_logout(sender, request, user, **kwargs):
     print('user {} logged out through page {}'.format(user.username, request.META.get('HTTP_REFERER')))
+    conex = Conexiones.objects.get(nombre=user)
+    conex.conexion = 'Desconectado'
+    conex.save()
     logout= LoginLogoutLog(logout_time=datetime.datetime.now(), session_key=request.session.session_key, user=user, host=request.META['HTTP_HOST'])
     logout.save()

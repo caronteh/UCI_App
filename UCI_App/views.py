@@ -3,7 +3,7 @@ from .forms import UserRegisterForm, PropuestasForm, MapasHitsForm
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Mapeo, RPropuestas, Cuenta, LoginLogoutLog, NumHits
+from .models import Mapeo, RPropuestas, Cuenta, LoginLogoutLog, NumHits, Conexiones
 from django.urls import reverse_lazy, reverse
 from hitcount.views import HitCountDetailView
 from django.db.models import Count
@@ -15,7 +15,8 @@ def Inicio(request):
     estats = 0
     temp = 0
     id = 0
-    count = User.objects.filter(last_login__startswith=timezone.now().date()).count()
+    count = Conexiones.objects.filter(conexion='Conectado').count
+    conexiones = Conexiones.objects.all()
     usuario = request.user
     cuentas = Cuenta.objects.all()
     logins = LoginLogoutLog.objects.all()
@@ -45,7 +46,7 @@ def Inicio(request):
 
 
 
-    return render(request,"inicio.html",{'cuentas':cuentas, 'usuario':usuario, 'count':count, 'propuestas': propuestas, 'logins':logins, 'form':form, 'estats':estats, 'labels':labels, 'data':data} )
+    return render(request,"inicio.html",{'cuentas':cuentas, 'usuario':usuario, 'count':count, 'propuestas': propuestas, 'logins':logins, 'form':form, 'estats':estats, 'labels':labels, 'data':data, 'conexiones':conexiones} )
 
 
 def Log(request):
